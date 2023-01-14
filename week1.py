@@ -35,7 +35,7 @@ def plot_dfFFT(f, f2=None, name=""):
 
 
 def task1():
-    k = np.linspace(-k_max, k_max, 2048)
+    k = np.linspace(-k_max, k_max, n)
     gauss = np.exp(-x ** 2)
     gauss_hat = np.sqrt(np.pi) * np.exp(-np.pi ** 2 * k ** 2)
     lorentzian = np.exp(-np.abs(x))
