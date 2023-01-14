@@ -3,28 +3,29 @@ import matplotlib.pyplot as plt
 from scipy.fft import fft, fftfreq, fftshift, ifft
 import scipy.linalg
 
-n = 10000
-L = 100
-dx = L/n
-x = np.arange(-L/2, L/2, dx, dtype="complex_")
-k = (2*np.pi/L)*np.arange(-n/2, n/2)
-k = fftshift(k)
+n = 2048
+L = 40
+dx = L / (n - 1)
+x = np.linspace(-L / 2, L / 2, n)
+
 
 def propagate(psi, dt):
+    k_max = 1 / (2 * dx)
+    k = fftshift(np.linspace(-k_max, k_max, n))
     psi_hat = fft(psi)
-    return ifft(psi_hat*np.exp(1j*dt*k**2))
+    return ifft(psi_hat * np.exp(1j * dt * k ** 2))
+
 
 if __name__ == '__main__':
     A0 = 1
-    t0 = 10.0
-    dt = 1.0
-    initial_state = lambda t: A0 * np.exp(-0.5*t**2/t0**2)
-
-    state = initial_state(x)
-    for i in range(100):
+    t0 = 1
+    dt = 1e-1
+    state = (lambda t: A0 * np.exp(-t ** 2 / t0 ** 2))(x)
+    plt.plot(x, state)
+    for i in range(300):
         state = propagate(state, dt)
         scipy.linalg.norm(state)
 
         plt.plot(x, state)
-        plt.xlim([-50,50])
-    plt.savefig('splitstep.png')
+        plt.xlim([-10, 10])
+    plt.savefig('figures/splitstep.png')
