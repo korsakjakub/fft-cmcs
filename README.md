@@ -35,3 +35,9 @@ $$ C(x) = (\theta(x+1) - \theta(x-1))\cdot \cos(x) $$
 $$\hat{C}(x) = - \frac{i}{2(4\pi^2 k^2 - 1)} e^{-i(2\pi k + 1)}(-2\pi k + e^{4 i \pi k + 2i}(2 \pi k - 1) + e^{4 i \pi k}(2\pi k + 1) - e^{2i}(2\pi k + 1)+1)$$
 
 ![](figures/conv.png)
+
+## Week 2
+
+Employ the Baker Hausdorf formula to evolve a free gaussian wave function
+
+![](figures/splitstep.png)
