@@ -4,18 +4,26 @@
 
 Perform FFT and compare it with analytical formulas:
 
-1. Gaussian function
+### Gaussian function
+
+$$G(x) = e^{-x^2}$$ //testing TeX support for web version
 
 ![](figures/gauss.png)
 
-2. Lorentzian function
+### Lorentzian function
+
+$$ \Gamma(x) = e^{-|x|} $$
 
 ![](figures/lorentz.png)
 
-3. Step function
+### Step function
+
+$$ S(x) = \theta(x+1) - \theta(x-1) $$
 
 ![](figures/step.png)
 
-4. Step function modulated with cos
+### Step function modulated with cos
+
+$$ C(x) = (\theta(x+1) - \theta(x-1))\cdot \cos(x) $$
 
 ![](figures/conv.png)
