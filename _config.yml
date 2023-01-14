@@ -1,0 +1,21 @@
+title: FFT lab
+author:
+  name: Jakub Korsak
+  email: jakub@korsak.xyz
+
+# The `>` after `description:` means to ignore line-breaks until next key.
+# If you want to omit the line-break after the end of text, use `>-` instead.
+description: >
+  Repository from the Computer Modelling of Complex Systems labs @ FUW
+# Build settings
+
+theme: minima
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Theme-specific settings
+
+minima:
+- { platform: github,         user_url: "https://github.com/korsakjakub/fft-cmcs" }
