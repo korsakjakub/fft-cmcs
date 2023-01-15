@@ -30,9 +30,12 @@ if __name__ == '__main__':
         state = propagate(state, dt)
         scipy.linalg.norm(state)
 
-        plt.plot(x, state)
+        plt.plot(x, abs(state), label=f'|ψ|(t = {round(i*dt, 3)})')
+        plt.plot(x, state.real, label=f'real part')
+        plt.plot(x, state.imag, label=f'imaginary part')
         plt.xlim([-10, 10])
         plt.ylim([-0.3, 1.1])
+        plt.legend()
         fnames.append(f'figures/splitstep/{i}.png')
         plt.savefig(fnames[-1])
         plt.close()
@@ -41,6 +44,6 @@ if __name__ == '__main__':
         for filename in fnames:
             image = imageio.v2.imread(filename)
             writer.append_data(image)
-    
+
     for filename in set(fnames):
         os.remove(filename)
