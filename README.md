@@ -1,5 +1,3 @@
-# Computer Modelling of Complex Systems - FFT
-
 ## Week 1
 
 Perform FFT and compare it with analytical formulas:
