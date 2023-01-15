@@ -43,3 +43,11 @@ Employ the Baker Hausdorf formula to evolve a free gaussian wave function
 $$ \Psi(x, t+\delta t) = \int dk \Psi(k) \exp(-i\delta t k^2) \exp(i k x) $$
 
 ![](figures/splitstep.gif)
+
+## Week 3
+
+Propagate Gaussian pulses
+
+$$ A(z, t) = A_0 \frac{t_0}{t_0^2 - i \beta_2 z} e^{-\frac{1}{2} \frac{(t-\beta_1 z)^2}{t_0^2 - i \beta_2 z}} $$
+
+![](figures/pulse-analytic.gif)

@@ -1,30 +1,36 @@
-import numpy as np
+import os
+
+import imageio
 import matplotlib.pyplot as plt
-from scipy.fft import fft, fftfreq, fftshift, ifft
-import scipy.linalg
+import numpy as np
 
-n = 10000
-L = 100
-dx = L/n
-x = np.arange(-L/2, L/2, dx, dtype="complex_")
-k = (2*np.pi/L)*np.arange(-n/2, n/2)
-k = fftshift(k)
-
-def propagate(psi, dt):
-    psi_hat = fft(psi)
-    return ifft(psi_hat*np.exp(1j*dt*k**2))
+n = 2048
+L = 40
+dx = L / (n - 1)
+z = np.linspace(-L / 2, L / 2, n)
 
 if __name__ == '__main__':
     A0 = 1
-    t0 = 10.0
-    dt = 1.0
-    initial_state = lambda t: A0 * np.exp(-0.5*t**2/t0**2)
-
-    state = initial_state(x)
+    dt = 1e-1
+    t0 = 1.0
+    beta1 = 0.5
+    beta2 = 0.0
+    state = lambda t: A0 * t0 / np.sqrt(t0 ** 2 - 1j * beta2 * z) * np.exp(
+        -0.5 * (t - beta1 * z) ** 2 / (t0 ** 2 - 1j * beta2 * z))
+    fnames = []
     for i in range(100):
-        state = propagate(state, dt)
-        scipy.linalg.norm(state)
+        plt.plot(z, abs(state(t0 + i * dt)), label=f'analytic A(z, t = {round(t0 + i * dt, 3)})')
+        plt.xlim([-20, 20])
+        plt.ylim([-0.25, 1.2])
+        plt.legend()
+        fnames.append(f'figures/pulse/{i}.png')
+        plt.savefig(fnames[-1])
+        plt.close()
 
-        plt.plot(x, state)
-        plt.xlim([-50,50])
-    plt.savefig('splitstep.png')
+    with imageio.get_writer('figures/pulse-analytic.gif', mode='I') as writer:
+        for filename in fnames:
+            image = imageio.v2.imread(filename)
+            writer.append_data(image)
+
+    for filename in set(fnames):
+        os.remove(filename)
