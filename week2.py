@@ -2,6 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.fft import fft, fftfreq, fftshift, ifft
 import scipy.linalg
+import imageio.v2
+import imageio
+import os
 
 n = 2048
 L = 40
@@ -19,13 +22,25 @@ def propagate(psi, dt):
 if __name__ == '__main__':
     A0 = 1
     t0 = 1
-    dt = 1e-1
+    dt = 3e-1
     state = (lambda t: A0 * np.exp(-t ** 2 / t0 ** 2))(x)
     plt.plot(x, state)
-    for i in range(300):
+    fnames = []
+    for i in range(150):
         state = propagate(state, dt)
         scipy.linalg.norm(state)
 
         plt.plot(x, state)
         plt.xlim([-10, 10])
-    plt.savefig('figures/splitstep.png')
+        plt.ylim([-0.3, 1.1])
+        fnames.append(f'figures/splitstep/{i}.png')
+        plt.savefig(fnames[-1])
+        plt.close()
+
+    with imageio.get_writer('figures/splitstep.gif', mode='I') as writer:
+        for filename in fnames:
+            image = imageio.v2.imread(filename)
+            writer.append_data(image)
+    
+    for filename in set(fnames):
+        os.remove(filename)
