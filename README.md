@@ -40,4 +40,6 @@ $$\hat{C}(x) = - \frac{i}{2(4\pi^2 k^2 - 1)} e^{-i(2\pi k + 1)}(-2\pi k + e^{4 i
 
 Employ the Baker Hausdorf formula to evolve a free gaussian wave function
 
+$$ \Psi(x, t+\delta t) = \int dk \Psi(k) \exp(-i\delta t k^2) \exp(i k x) $$
+
 ![](figures/splitstep.gif)
